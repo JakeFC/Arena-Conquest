@@ -38,7 +38,7 @@ public class AllyBehavior : MonoBehaviour
     // Update is called once per frame
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "EnemyWeapon" && (other.relativeVelocity.magnitude > .00001 || other.relativeVelocity.magnitude < -.00001))
+        if (other.gameObject.tag == "EnemyWeapon" && (other.relativeVelocity.magnitude > .000001 || other.relativeVelocity.magnitude < -.000001))
         {
             _health.value -= 10;
             _mat.SetFloat("GlowStrength", 1);

@@ -40,13 +40,12 @@ public class EnemyMov : MonoBehaviour
                 _attack.SetInteger("EnemyNear", _rd.Next(3));
         }
 
-        if (destination)
+        if (destination || _target)
         {
             if (!_enemyNear || !_target)
                 _agent.destination = destination.position + offset;
             else
                 _agent.destination = _target.position;
-            //debug.text = _agent.destination.ToString();
         }
 
         if (_target != null)

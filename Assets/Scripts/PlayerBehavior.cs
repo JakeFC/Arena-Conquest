@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PlayerBehavior : MonoBehaviour
 {
     public Image damageScreen;
-    public int health;
+    public int health = 100;
 
     private float _alpha;
 
@@ -23,9 +23,9 @@ public class PlayerBehavior : MonoBehaviour
     }
 
     // Update is called once per frame
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "EnemyWeapon" && (other.relativeVelocity.magnitude > .00001 || other.relativeVelocity.magnitude < -.00001))
+        if (other.gameObject.tag == "EnemyWeapon")
         {
             health -= 10;
             _alpha = 0.5f;

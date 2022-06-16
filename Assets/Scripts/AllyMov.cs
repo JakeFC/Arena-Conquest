@@ -45,7 +45,6 @@ public class AllyMov : MonoBehaviour
                 _agent.destination = destination.position + offset;
             else
                 _agent.destination = _target.position;
-            //debug.text = _agent.destination.ToString();
         }
 
         if (_target != null)
