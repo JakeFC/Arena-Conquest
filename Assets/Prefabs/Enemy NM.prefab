@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotSpeed: 15
   debug: {fileID: 6974173389557427793}
+  center: {fileID: 0}
   destination: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
 --- !u!1 &2475981993037300091
@@ -805,6 +806,7 @@ GameObject:
   - component: {fileID: 2475981994289173166}
   - component: {fileID: 2475981994289173167}
   - component: {fileID: 2475981994289173200}
+  - component: {fileID: 3479042826270537165}
   m_Layer: 0
   m_Name: Sword00_mesh(Clone)
   m_TagString: EnemyWeapon
@@ -905,6 +907,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.058312893, y: 0.6917336, z: 0.14586277}
   m_Center: {x: 0, y: 0.34673184, z: -0.0041441023}
+--- !u!114 &3479042826270537165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2475981994289173202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89bd01ee6a331b74b878d54117dd7bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: {fileID: 2475981994002133038}
 --- !u!1 &2475981994352330947
 GameObject:
   m_ObjectHideFlags: 0

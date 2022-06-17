@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    public Canvas canvas;
     public Image damageScreen;
     public int health = 100;
 
@@ -20,6 +21,9 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (_alpha == 0.5f)
             StartCoroutine(Blink());
+
+        if (health == 0)
+            ShowLoseScreen();
     }
 
     // Update is called once per frame
@@ -44,5 +48,15 @@ public class PlayerBehavior : MonoBehaviour
             yield return new WaitForSeconds(.1f);
         }
         yield return null;
+    }
+
+    void ShowLoseScreen()
+    {
+
+    }
+
+    void ShowWinScreen()
+    {
+        canvas.gameObject.SetActive(true);
     }
 }

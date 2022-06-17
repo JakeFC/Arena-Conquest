@@ -8,6 +8,7 @@ public class EnemyMov : MonoBehaviour
 {
     public float rotSpeed;
     public Text debug;
+    public Transform center;
     public Transform destination;
     private List<Transform> _allies = new List<Transform>();
     public Vector3 offset;
@@ -16,7 +17,7 @@ public class EnemyMov : MonoBehaviour
     private bool _enemyNear = false;
     private float _nextActionTime;
     private float _singleStep;
-    private float _wait = 1f;
+    private float _wait = 0.5f;
     private NavMeshAgent _agent;
     private System.Random _rd = new System.Random();
     private Transform _player = null;
@@ -53,6 +54,10 @@ public class EnemyMov : MonoBehaviour
             _singleStep = rotSpeed * Time.deltaTime;
             transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward,
                                     _target.position - transform.position, _singleStep, 0f));
+        }
+        else if (center)
+        {
+            transform.rotation = center.rotation;
         }
     }
 

@@ -1,0 +1,78 @@
+{
+    "name": "VR Controls",
+    "maps": [
+        {
+            "name": "Voice Activation",
+            "id": "00761e04-0c2e-4643-b2fc-64a0cf5fba04",
+            "actions": [
+                {
+                    "name": "Trigger Press",
+                    "type": "Button",
+                    "id": "39008e3e-8873-48f5-8834-702d16cb24ed",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7ed883df-fb21-4bd3-aa48-416b65efc256",
+                    "path": "<OpenVROculusTouchController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c608870-5bcb-4e49-b88e-4f102ecc5ee1",
+                    "path": "<XRSimulatedController>{LeftHand}/triggerButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "179acbef-6b6d-462f-b18d-089766cca3b6",
+                    "path": "<WMRSpatialController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a91d6716-4702-41eb-84a7-fa19dcec6a31",
+                    "path": "<XRSimulatedController>/triggerButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a9f08267-7691-4f3b-9978-f26d3b0bfb55",
+                    "path": "*/{PrimaryTrigger}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

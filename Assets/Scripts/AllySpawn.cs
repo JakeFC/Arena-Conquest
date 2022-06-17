@@ -1,7 +1,10 @@
+using Facebook.WitAi;
+using Facebook.WitAi.Lib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows.Speech;
 
 public class AllySpawn : MonoBehaviour
 {
@@ -17,10 +20,15 @@ public class AllySpawn : MonoBehaviour
     private int _r;
     private int _c;
     private AllyMov _movement;
+    private ConfidenceLevel _confidence = ConfidenceLevel.Medium;
     private GameObject _clone;
     private List<GameObject> _allyList = new List<GameObject>();
     private List<GameObject> _removeList = new List<GameObject>();
+    private string _command = null;
+    private string[] _keywords = new string[] { "attack", "stop", "spread", "close ranks" };
     private Transform _target;
+
+    protected PhraseRecognizer recognizer;
 
     public float spacing = 3f;
     public int width = 5;
@@ -33,7 +41,26 @@ public class AllySpawn : MonoBehaviour
     void Start()
     {
         center = transform;
+
+        if (_keywords != null)
+        {
+            recognizer = new KeywordRecognizer(_keywords, _confidence);
+            recognizer.OnPhraseRecognized += Recognizer_OnPhraseRecognized;
+            recognizer.Start();
+            Debug.Log( recognizer.IsRunning );
+        }
+
+        foreach (var device in Microphone.devices)
+        {
+            Debug.Log("Name: " + device);
+        }
+
         SpawnAllies(45);
+    }
+
+    private void Recognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
+    {
+        _command = args.text;
     }
 
     // Update is called once per frame
@@ -56,20 +83,59 @@ public class AllySpawn : MonoBehaviour
             _targeted = true;
         }
 
-        if (Input.GetKeyDown("1"))
+        if (_command != null)
         {
-            Target();
-            _targeted = true;
+            switch (_command)
+            {
+                case "attack":
+                    Charge();
+                    break;
+                case "stop":
+                    Stop();
+                    break;
+                case "close ranks":
+                    CloseRanks();
+                    break;
+                case "spread":
+                    SpreadOut();
+                    break;
+            }
+            _command = null;
         }
 
-        if (Input.GetKeyDown("2"))
-            Stop();
+        if (!center)
+        {
+            foreach (GameObject _clone in _allyList)
+            {
+                if (_clone)
+                    center = _clone.transform;
+                    break;
+            }
+            if (!center && player)
+                center = player.transform;
+        }
+    }
 
-        if (Input.GetKeyDown("3"))
-            CloseRanks();
-
-        if (Input.GetKeyDown("4"))
-            SpreadOut();
+    public void UpdateCommand(string command)
+    {
+        if (command != null)
+        {
+            switch (command)
+            {
+                case "attack":
+                Charge();
+                break;
+                case "stop":
+                Stop();
+                break;
+                case "close ranks":
+                CloseRanks();
+                break;
+                case "spread":
+                SpreadOut();
+                break;
+            }
+        }
     }
 
     public void Remove(GameObject obj)
@@ -157,7 +223,14 @@ public class AllySpawn : MonoBehaviour
                 continue;
             _movement = obj.GetComponent<AllyMov>();
             _movement.destination = _target;
+            _movement.center = center;
         }
+    }
+
+    public void Charge()
+    {
+        Target();
+        _targeted = true;
     }
 
     public void Stop()
@@ -189,6 +262,15 @@ public class AllySpawn : MonoBehaviour
         {
             if (obj)
                 obj.GetComponent<AllyMov>().offset /= 2;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (recognizer != null && recognizer.IsRunning)
+        {
+            recognizer.OnPhraseRecognized -= Recognizer_OnPhraseRecognized;
+            recognizer.Stop();
         }
     }
 }

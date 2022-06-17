@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.facebook.witai": {
+      "version": "https://github.com/wit-ai/wit-unity.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "60f1b31660461d0d62c0baf4b71f88824ca99cec"
+    },
     "com.unity.collab-proxy": {
       "version": "1.13.5",
       "depth": 0,

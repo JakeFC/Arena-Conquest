@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class EnemySpawn : MonoBehaviour
 {
     private bool _changed = false;
     private bool _stopped = false;
     private bool _targeted = false;
+    private bool _won = false;
     private float _nextActionTime = 0f;
     private float _wait = .5f;
     private int _rows;
@@ -22,9 +25,11 @@ public class EnemySpawn : MonoBehaviour
     private List<GameObject> _removeList = new List<GameObject>();
     private Transform _target;
 
+    public Canvas canvas;
     public float spacing = 3f;
     public int width = 5;
     public Transform center;
+    public Transform player;
     public GameObject allySpawner;
     public GameObject prefab;
 
@@ -32,7 +37,7 @@ public class EnemySpawn : MonoBehaviour
     void Start()
     {
         center = transform;
-        SpawnEnemies(45);
+        SpawnEnemies(40);
     }
 
     // Update is called once per frame
@@ -60,6 +65,18 @@ public class EnemySpawn : MonoBehaviour
             if (!_stopped)
                 Target();
             _targeted = true;
+        }
+
+        if (!center)
+        {
+            foreach (GameObject _clone in _enemyList)
+            {
+                if (_clone)
+                    center = _clone.transform;
+                    break;
+            }
+            if (!center && !_won)
+                ShowWinScreen();
         }
     }
 
@@ -156,6 +173,7 @@ public class EnemySpawn : MonoBehaviour
                 continue;
             _movement = obj.GetComponent<EnemyMov>();
             _movement.destination = center;
+            _movement.center = center;
         }
     }
 
@@ -177,5 +195,11 @@ public class EnemySpawn : MonoBehaviour
             if (obj)
                 obj.GetComponent<EnemyMov>().offset /= 2;
         }
+    }
+
+    public void ShowWinScreen()
+    {
+        _won = true;
+        canvas.gameObject.SetActive(true);
     }
 }

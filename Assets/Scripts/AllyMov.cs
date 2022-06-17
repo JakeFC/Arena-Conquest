@@ -8,6 +8,7 @@ public class AllyMov : MonoBehaviour
 {
     public float rotSpeed;
     public Text debug;
+    public Transform center;
     public Transform destination = null;
     private List<Transform> _enemies = new List<Transform>();
     public Vector3 offset;
@@ -52,6 +53,10 @@ public class AllyMov : MonoBehaviour
             _singleStep = rotSpeed * Time.deltaTime;
             transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward,
                                     _target.position - transform.position, _singleStep, 0f));
+        }
+        else if (center)
+        {
+            transform.rotation = center.rotation;
         }
     }
 
